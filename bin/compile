@@ -7,10 +7,10 @@ BUILD_DIR="$1"; shift
 CACHE_DIR="$1"; shift
 ENV_DIR="$1"; shift
 
-export PREFIX="$HOME/progs"
+export PREFIX="$BUILD_DIR/progs"
 mkdir -p "$PREFIX/include"
 
-LOG_PREFIX="$HOME/tmp"
+LOG_PREFIX="$BUILD_DIR/tmp"
 mkdir -p "$LOG_PREFIX"
 
 echo "-----> PATH: $PATH"
