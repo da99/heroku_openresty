@@ -11,6 +11,9 @@ BUILD_DIR="$DIR/build"
 CACHE_DIR="$DIR/cache"
 ENV_DIR="$DIR/env"
 
+export HOME="$DIR/home/apps"
+mkdir -p "$HOME"
+
 rm -rf "$DIR"
 mkdir -p "$BUILD_DIR"
 mkdir -p "$CACHE_DIR"
