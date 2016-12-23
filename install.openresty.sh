@@ -44,16 +44,17 @@ upgrade-openresty () {
 
   if [[ ! -d ${LATEST_DIR} ]]; then
     if [[ ! -s $LATEST_ARCHIVE ]]; then
-      wget $PREFIX_URL/${LATEST_ARCHIVE}
+      wget --quiet $PREFIX_URL/${LATEST_ARCHIVE}
     fi
 		tar -xvf ${LATEST_ARCHIVE} >/dev/null || { rm $LATEST_ARCHIVE; upgrade-openresty "$PREFIX"; exit 0; }
 	fi
 
+  set "-x"
   cd $LATEST_DIR
 
   local +x PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 
-  ./configure                      \
+  PATH="$PATH:/sbin" ./configure                      \
     --prefix="$PREFIX"             \
     --with-http_iconv_module       \
     --without-http_redis2_module   \
