@@ -10,7 +10,7 @@ current-ver () {
 latest-openresty-archive () {
   local VER="$1"; shift
   if [[ -z "$VER" ]]; then
-    echo "-----> !!! Latest OpenResty version {{not found}}." >&2
+    echo "-----> !!! Latest OpenResty version not found." >&2
     exit 1
   fi
   echo ""
@@ -23,7 +23,7 @@ upgrade-openresty () {
 
   local +x PREFIX_URL="https://openresty.org/download"
 
-  echo "-----> Using PREFIX for OpenResty: {{$PREFIX}}"
+  echo "-----> Using PREFIX for OpenResty: $PREFIX"
 
   local +x CURRENT_VER=$(current-ver)
   local +x LATEST_VER=$(latest-ver)
