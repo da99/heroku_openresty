@@ -16,6 +16,7 @@ cd "$BUILD_DIR"
 mkdir -p progs
 mkdir -p tmp
 
+echo "-----> PATH: $PATH"
 echo "-----> Installing OpenResty: "
 source "$THIS_DIR/install.openresty.sh"
 upgrade-openresty

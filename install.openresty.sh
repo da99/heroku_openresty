@@ -53,7 +53,6 @@ upgrade-openresty () {
 
   local +x PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 
-
   ./configure                      \
     --prefix="$PREFIX"             \
     --with-http_iconv_module       \
@@ -63,7 +62,8 @@ upgrade-openresty () {
     --with-http_ssl_module         \
     --error-log-path="$LOG_PREFIX/startup.error.log" \
     --http-log-path="$LOG_PREFIX/startup.access.log"  \
-    -j$(($PROCS - 1))
+    -j$(($PROCS - 1)) >/dev/null
+
   make
   make install
 
