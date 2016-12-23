@@ -46,7 +46,7 @@ upgrade-openresty () {
     if [[ ! -s $LATEST_ARCHIVE ]]; then
       wget $PREFIX_URL/${LATEST_ARCHIVE}
     fi
-		tar -xvf ${LATEST_ARCHIVE} || { rm $LATEST_ARCHIVE; upgrade-openresty "$PREFIX"; exit 0; }
+		tar -xvf ${LATEST_ARCHIVE} >/dev/null || { rm $LATEST_ARCHIVE; upgrade-openresty "$PREFIX"; exit 0; }
 	fi
 
   cd $LATEST_DIR
