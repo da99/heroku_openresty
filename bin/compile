@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+#
+#
+THE_ARGS="$@"
+THIS_DIR="$(dirname "$(dirname "$0")")"
+
+BUILD_DIR="$1"; shift
+CACHE_DIR="$1"; shift
+ENV_DIR="$1"; shift
+
+set -u -e -o pipefail
+
+cd "$CACHE_DIR"
+
+cd "$BUILD_DIR"
+mkdir -p progs
+mkdir -p tmp
+
+echo "-----> Installing OpenResty: "
+source "$THIS_DIR/install.openresty.sh"
+upgrade-openresty

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#
+#
+THE_ARGS="$@"
+THIS_DIR="$(dirname "$(dirname "$0")")"
+
+BUILD_DIR="$1"; shift
+
+set -u -e -o pipefail
+
+echo "HerokuOpenrestyDA99"
+exit 0
