@@ -41,8 +41,8 @@ fi
 
 cd "$PREFIX"
 
-local +x ARCHIVE="openresty-${LATEST_VER}.tar.gz"
-local +x SOURCE_DIR=$(basename "$ARCHIVE" ".tar.gz")
+ARCHIVE="openresty-${LATEST_VER}.tar.gz"
+SOURCE_DIR=$(basename "$ARCHIVE" ".tar.gz")
 echo "-----> Downloading $ARCHIVE... "
 echo "-----> in directory: $PWD ["
 ls -1
@@ -58,7 +58,7 @@ fi
 cd $SOURCE_DIR
 echo "-----> in openresty source directory: $PWD"
 
-local +x PROCS="$(grep -c '^processor' /proc/cpuinfo)"
+PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 
 # NOTE: /sbin in PATH is needed because OpenResty
 # compilation requires ldconfig in PATH.
