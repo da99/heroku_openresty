@@ -63,7 +63,7 @@ upgrade-openresty () {
     --with-http_ssl_module         \
     --error-log-path="$LOG_PREFIX/startup.error.log" \
     --http-log-path="$LOG_PREFIX/startup.access.log"  \
-    -j$(($PROCS - 1)) >/dev/null
+    -j$(($PROCS - 1))
 
   make
   make install
