@@ -25,9 +25,15 @@ echo "-----> PREFIX:    $PREFIX"
 echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
 if [[ -d "$COMPILED_NGINX/progs/nginx" ]] ; then
+  echo "=====> ls $COMPILED_NGINX"
+  ls -al "$COMPILED_NGINX"
+
+  echo ""
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
   mkdir -p "$BUILD_DIR"
   mkdir -p "$LOG_PREFIX"
+
+  echo ""
   echo "-----> Copying:"
   cp -i -r "$COMPILED_NGINX" "$BUILD_DIR/"
   ls -al "$BUILD_DIR/"
