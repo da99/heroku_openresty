@@ -12,7 +12,8 @@ ENV_DIR="$1"; shift
 export PATH="$PATH:/sbin"  # === to use ldconfig
 export PREFIX="./progs"
 
-# cd "$CACHE_DIR"
+cd "$CACHE_DIR"
+
 # BUILD_ID="$(git ls-remote -h https://github.com/da99/heroku_openresty || echo "unknown")"
 # if [[ "$BUILD_ID" != "$(cat "$PREFIX/old.compile" || : )" ]]; then
 #   echo "=====> Removing old $PREFIX ..."
