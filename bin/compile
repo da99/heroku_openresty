@@ -35,6 +35,7 @@ else
   fi
 fi
 
+echo "=====> PWD:       $PWD"
 echo "-----> PATH:      $PATH"
 echo "-----> BUILD_DIR: $BUILD_DIR"
 echo "-----> CACHE_DIR: $CACHE_DIR"
