@@ -13,10 +13,8 @@ export PATH="$PATH:/sbin"  # === to use ldconfig
 export PREFIX="./progs"
 
 cd "$CACHE_DIR"
-
-stat "$0" >new.compile
-
-if test -f "$PREFIX/old.compile" && ! diff "$PREFIX/old.compile" "new.compile"; then
+BUILD_ID="$(git ls-remote -h https://github.com/da99/heroku_openresty || echo "unknown")"
+if [[ "$BUILD_ID" != "$(cat "$PREFIX/old.compile" || : )" ]]; then
   echo "=====> Removing old $PREFIX ..."
   rm -rf $PREFIX
 fi
@@ -105,7 +103,8 @@ for FILE in $(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*) ; do
   ( cd "$(dirname "$FILE")" && ! test -e "$new_file" && ln -s "$old_file" "$new_file") || :
 done
 
-stat "$0" >$PREFIX/old.compile
+
+echo "$BUILD_DIR" >$PREFIX/old.compile
 cp -i -r "$PREFIX" "$BUILD_DIR/$PREFIX"
 echo -n "-----> Installed in $BUILD_DIR: "
 $BUILD_DIR/$PREFIX/nginx/sbin/nginx -v || {
