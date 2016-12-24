@@ -86,10 +86,10 @@ PATH="$PATH:/sbin" ./configure                      \
   --with-luajit                  \
   --with-ipv6                    \
   --with-http_ssl_module         \
-  --error-log-path="$LOG_PREFIX/startup.error.log" \
-  --http-log-path="$LOG_PREFIX/startup.access.log"  \
   -j$(($PROCS - 1))
 
+  # --error-log-path="$LOG_PREFIX/startup.error.log" \
+  # --http-log-path="$LOG_PREFIX/startup.access.log"  \
 make
 make install
 
