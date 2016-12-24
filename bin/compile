@@ -68,9 +68,11 @@ cd "$CACHE_DIR"
 ARCHIVE="openresty-${LATEST_VER}.tar.gz"
 SOURCE_DIR=$(basename "$ARCHIVE" ".tar.gz")
 echo "-----> Downloading $ARCHIVE... "
-echo "-----> in directory: $PWD ["
+echo "-----> in cache directory: $PWD ["
 ls -1
 echo "-----> ]"
+echo "ls -al $PWD/compiled"
+ls compiled -al
 
 if [[ ! -d "$SOURCE_DIR" ]]; then
   if [[ ! -s $ARCHIVE ]]; then
