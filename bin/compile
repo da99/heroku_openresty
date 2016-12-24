@@ -27,21 +27,12 @@ echo "-----> LOG_PREFIX:$LOG_PREFIX"
 if [[ -d "$COMPILED_NGINX" ]] ; then
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
   rm -rf "$PREFIX"
-  cp -r "$COMPILED_NGINX" "$PREFIX"
+  cp -i -r "$COMPILED_NGINX" "$PREFIX"
   exit 0
 else
   mkdir -p "$PREFIX"
 fi
 
-if [[ -z "$PORT" ]]; then
-  echo "listen 8080;" > "$PREFIX/listen.conf"
-else
-  echo "listen $PORT;" > "$PREFIX/listen.conf"
-fi
-
-ls "$PREFIX"
-
-echo "----->"
 echo "-----> Installing OpenResty:"
 
 
