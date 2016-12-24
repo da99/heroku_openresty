@@ -10,8 +10,8 @@ CACHE_DIR="$1"; shift
 ENV_DIR="$1"; shift
 
 export PATH="$PATH:/sbin"  # === to use ldconfig
+export COMPILED_NGINX="$CACHE_DIR/compiled"
 export PREFIX="$BUILD_DIR/progs"
-mkdir -p "$PREFIX"
 
 export LOG_PREFIX="$BUILD_DIR/tmp"
 mkdir -p "$LOG_PREFIX"
@@ -23,6 +23,15 @@ echo "-----> CACHE_DIR: $CACHE_DIR"
 echo "-----> ENV_DIR:   $ENV_DIR"
 echo "-----> PREFIX:    $PREFIX"
 echo "-----> LOG_PREFIX:$LOG_PREFIX"
+
+if [[ -d "$COMPILED_NGINX" ]] ; then
+  echo "-----> Using compiled nginx: $COMPILED_NGINX"
+  rm -rf "$PREFIX"
+  cp "$COMPILED_NGINX" "$PREFIX"
+  exit 0
+else
+  mkdir -p "$PREFIX"
+fi
 
 if [[ -z "$PORT" ]]; then
   echo "listen 8080;" > "$PREFIX/listen.conf"
@@ -107,4 +116,9 @@ echo -n "-----> Installed: "
   rm -rf "$PREFIX"
   exit 1;
 }
+
+echo "-----> Copying into cache for next deploy:"
+rm -rf "$COMPILED_NGINX"
+mkdir -p "$COMPILED_NGINX"
+cp -r "$PREFIX" "$COMPILED_NGINX"
 
