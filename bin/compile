@@ -36,10 +36,10 @@ if [[ -d "$COMPILED_NGINX/progs/nginx" ]] ; then
   ls -al "$PREFIX"
 
   exit 0
-else
-  mkdir -p "$PREFIX"
 fi
 
+rm -rf "$COMPILED_NGINX"
+mkdir -p "$PREFIX"
 echo "-----> Installing OpenResty:"
 
 
