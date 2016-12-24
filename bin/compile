@@ -82,7 +82,10 @@ make
 make install
 
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
-  ln -s "$FILE" "$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
+  NEW_FILE="$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
+  if [[ ! -e "$NEW_FILE" ]]; then
+    ln -s "$FILE" "$NEW_FILE"
+  fi
 done
 
 ls -al "$PREFIX"/luajit/lib/
