@@ -28,7 +28,7 @@ if [[ -d "$COMPILED_NGINX" ]] ; then
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
   mkdir -p "$BUILD_DIR"
   mkdir -p "$LOG_PREFIX"
-  cp -i -r "$COMPILED_NGINX" "$PREFIX"
+  cp -i -r "$COMPILED_NGINX" "$BUILD_DIR/"
 
   echo "-----> ls /tmp"
   ls -al "/tmp"
@@ -118,5 +118,5 @@ echo -n "-----> Installed: "
 echo "-----> Copying into cache for next deploy:"
 rm -rf "$COMPILED_NGINX"
 mkdir -p "$COMPILED_NGINX"
-cp -r "$PREFIX" "$COMPILED_NGINX"
+cp -r "$PREFIX" "$COMPILED_NGINX/"
 
