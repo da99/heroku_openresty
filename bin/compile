@@ -80,6 +80,7 @@ PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 # NOTE: /sbin in PATH is needed because OpenResty
 # compilation requires ldconfig in PATH.
 
+cd "$SOURCE_DIR"
 PATH="$PATH:/sbin" ./configure   \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
@@ -95,6 +96,7 @@ PATH="$PATH:/sbin" ./configure   \
 make
 make install
 
+cd "$CACHE_DIR"
 rm    "$ARCHIVE"
 rm -r "$SOURCE_DIR"
 
