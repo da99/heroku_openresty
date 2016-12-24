@@ -44,7 +44,6 @@ if [[ ! -z "$("$COMPILED"/nginx/sbin/nginx -v || :)" ]] ; then
 
   echo ""
   echo "-----> Copying:"
-  set "-x"
   cp -i -r "$COMPILED" "$PREFIX"
 
   echo -n "-----> Copied: "
