@@ -29,7 +29,12 @@ if [[ -d "$COMPILED_NGINX" ]] ; then
   mkdir -p "$BUILD_DIR"
   mkdir -p "$LOG_PREFIX"
   cp -i -r "$COMPILED_NGINX" "$PREFIX"
-  ls -1 "$PREFIX"
+
+  echo "-----> ls /tmp"
+  ls -al "/tmp"
+  echo "-----> ls $PREFIX"
+  ls -al "$PREFIX"
+
   exit 0
 else
   mkdir -p "$PREFIX"
