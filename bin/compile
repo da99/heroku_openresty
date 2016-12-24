@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 #
 #
-echo "-----> PORT: $PORT"
 export PORT="$PORT"
 set -u -e -o pipefail
 
@@ -16,6 +15,7 @@ export PREFIX="./progs"
 
 cd "$CACHE_DIR"
 
+ls -al ./progs
 ls -al ./progs/luajit
 exit 1
 
