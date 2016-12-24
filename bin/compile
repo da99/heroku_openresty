@@ -16,7 +16,7 @@ cd "$CACHE_DIR"
 
 stat "$0" >new.compile
 
-if test -f "$PREFIX/old.compile" && ! diff "$PREFIX/old.compile" "new.compile" &>/dev/null; then
+if test -f "$PREFIX/old.compile" && ! diff "$PREFIX/old.compile" "new.compile"; then
   echo "=====> Removing old $PREFIX ..."
   rm -rf $PREFIX
 fi
