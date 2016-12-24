@@ -4,7 +4,6 @@
 export PORT="$PORT"
 set -u -e -o pipefail
 
-exit 1
 BUILD_DIR="$1"; shift
 mkdir -p "$BUILD_DIR/tmp"
 
