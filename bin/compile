@@ -36,7 +36,7 @@ echo "-----> ENV_DIR:   $ENV_DIR"
 echo "-----> PREFIX:    $PREFIX"
 echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
-ls "$COMPILED"
+ls "$CACHE_DIR"
 if [[ ! -z "$("$COMPILED"/nginx/sbin/nginx -v || :)" ]] ; then
   echo ""
   echo "-----> Using compiled nginx: $COMPILED"
