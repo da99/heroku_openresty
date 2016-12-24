@@ -17,6 +17,7 @@ export LOG_PREFIX="$BUILD_DIR/tmp"
 mkdir -p "$LOG_PREFIX"
 
 
+ls "$CACHE_DIR" -al
 ls "$CACHE_DIR/compiled" -al
 ls "$CACHE_DIR/compiled/progs" -al
 
