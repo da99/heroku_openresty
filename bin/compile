@@ -94,10 +94,12 @@ make install
 
 cd "$CACHE_DIR"
 echo "-----> Removing archive and source dir..."
+ls -al $PWD
 rm    "$ARCHIVE"
 rm -r "$SOURCE_DIR"
 
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
+ls -al $PWD
   ( cd "$(dirname "$FILE")" && ln -s "$(basename "$FILE")" "$(basename "$FILE" .1.0)" )
 done
 
