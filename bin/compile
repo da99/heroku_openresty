@@ -51,22 +51,16 @@ if [[ -e $PREFIX/nginx/sbin/nginx ]] ; then
   cp -i -r $PREFIX "$BUILD_DIR"/$PREFIX
 
   echo -n "-----> Copied: "
-  $PREFIX/nginx/sbin/nginx -v
+  "$BUILD_DIR"/$PREFIX/nginx/sbin/nginx -v
   exit 0
 fi
 
-mkdir -p $PREFIX
 echo "-----> Installing OpenResty:"
-
 
 
 # Based on: lua_setup install openresty
 #           and on:
 #           https://github.com/geoffleyland/heroku-buildpack-openresty/blob/master/bin/compile
-
-
-
-
 ARCHIVE="openresty-${LATEST_VER}.tar.gz"
 SOURCE_DIR=$(basename "$ARCHIVE" ".tar.gz")
 echo "-----> Downloading $ARCHIVE... "
@@ -83,6 +77,7 @@ PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 # compilation requires ldconfig in PATH.
 
 cd "$SOURCE_DIR"
+mkdir -p $PREFIX
 PATH="$PATH:/sbin" ./configure   \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
