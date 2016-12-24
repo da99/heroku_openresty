@@ -26,9 +26,8 @@ echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
 if [[ -d "$COMPILED_NGINX" ]] ; then
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
-  set "-x"
-  rm -rf "$PREFIX"
   cp -i -r "$COMPILED_NGINX" "$PREFIX"
+  mkdir -p "$PREFIX/tmp"
   exit 0
 else
   mkdir -p "$PREFIX"
