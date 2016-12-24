@@ -68,6 +68,7 @@ PATH="$PATH:/sbin" ./configure                      \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
   --without-http_redis2_module   \
+  --with-luajit                  \
   --with-pcre-jit                \
   --with-ipv6                    \
   --with-http_ssl_module         \
