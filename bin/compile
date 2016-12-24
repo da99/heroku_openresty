@@ -6,17 +6,18 @@ export PORT="$PORT"
 set -u -e -o pipefail
 
 BUILD_DIR="$1"; shift
+mkdir -p "$BUILD_DIR/tmp"
+
 CACHE_DIR="$1"; shift
+
 ENV_DIR="$1"; shift
 
+cd "$CACHE_DIR"
+
 export PATH="$PATH:/sbin"  # === to use ldconfig
-export PREFIX="$BUILD_DIR/progs"
-export COMPILED="$CACHE_DIR/progs"
+export PREFIX="./progs"
 
-export LOG_PREFIX="$BUILD_DIR/tmp"
-mkdir -p "$LOG_PREFIX"
-
-CURRENT_VER="$(test -d "$COMPILED"/nginx && (LD_LIBRARY_PATH="$COMPILED/luajit/lib" "$COMPILED"/nginx/sbin/nginx -v 2>&1 | cut -d'/' -f2) || :)"
+CURRENT_VER="$(test -d $PREFIX/nginx && ($PREFIX/nginx/sbin/nginx -v 2>&1 | cut -d'/' -f2) || :)"
 LATEST_VER="$((git ls-remote -t https://github.com/openresty/openresty | cut -d'/' -f 3 | sort -r | grep -P '^v[0-9\.]+$' | head -n 1 | cut -d'v' -f2) || :)"
 
 echo "-----> Current OpenResty: $CURRENT_VER"
@@ -26,7 +27,7 @@ if [[ -z "$LATEST_VER" ]]; then
   echo "-----> !!! Latest version not found." >&2
 else
   if [[ "$CURRENT_VER" != "$LATEST_VER" ]]; then
-    rm -rf "$COMPILED"
+    rm -rf $PREFIX
   fi
 fi
 
@@ -35,25 +36,20 @@ echo "-----> BUILD_DIR: $BUILD_DIR"
 echo "-----> CACHE_DIR: $CACHE_DIR"
 echo "-----> ENV_DIR:   $ENV_DIR"
 echo "-----> PREFIX:    $PREFIX"
-echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
-if [[ -e "$COMPILED"/nginx/sbin/nginx ]] ; then
+if [[ -e $PREFIX/nginx/sbin/nginx ]] ; then
   echo ""
-  echo "-----> Using compiled nginx: $COMPILED"
-  mkdir -p "$BUILD_DIR"
-  mkdir -p "$LOG_PREFIX"
-
+  echo "-----> Using compiled nginx: $PREFIX"
   echo ""
   echo "-----> Copying:"
-  cp -i -r "$COMPILED" "$PREFIX"
+  cp -i -r $PREFIX "$BUILD_DIR"/$PREFIX
 
   echo -n "-----> Copied: "
-  LD_LIBRARY_PATH="$PREFIX/luajit/lib" "$PREFIX"/nginx/sbin/nginx -v
+  $PREFIX/nginx/sbin/nginx -v
   exit 0
 fi
 
-rm -rf "$COMPILED"
-mkdir -p "$PREFIX"
+mkdir -p $PREFIX
 echo "-----> Installing OpenResty:"
 
 
@@ -87,7 +83,7 @@ PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 # NOTE: /sbin in PATH is needed because OpenResty
 # compilation requires ldconfig in PATH.
 
-PATH="$PATH:/sbin" ./configure                      \
+PATH="$PATH:/sbin" ./configure   \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
   --without-http_redis2_module   \
@@ -102,22 +98,16 @@ PATH="$PATH:/sbin" ./configure                      \
 make
 make install
 
+
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
-  NEW_FILE="$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
-  if [[ ! -e "$NEW_FILE" ]]; then
-    ln -s "$FILE" "$NEW_FILE"
-  fi
+  ( cd "$(dirname "$FILE")" && ln -s "$(basename "$FILE")" "$(basename "$FILE" .1.0)" )
 done
 
-echo -n "-----> Installed: "
-"$PREFIX"/nginx/sbin/nginx -v || {
+cp -i -r "$PREFIX" "$BUILD_DIR/$PREFIX"
+echo -n "-----> Installed in $BUILD_DIR: "
+$BUILD_DIR/$PREFIX/nginx/sbin/nginx -v || {
   rm -rf "$PREFIX"
   exit 1;
 }
 
-echo "-----> Copying into cache for next deploy: $COMPILED"
-rm -rf "$COMPILED"
-cp -i -r "$PREFIX" "$COMPILED"
-ls "$COMPILED"
-echo "-----------------------------------------|"
 

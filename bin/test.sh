@@ -27,3 +27,5 @@ cd "$DIR"
 if [[ -f "$THIS_DIR/bin/release" ]]; then
   "$THIS_DIR/bin/release"
 fi
+
+
