@@ -76,7 +76,6 @@ PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 # compilation requires ldconfig in PATH.
 
 cd "$SOURCE_DIR"
-mkdir -p $PREFIX
 PATH="$PATH:/sbin" ./configure   \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
@@ -91,15 +90,14 @@ PATH="$PATH:/sbin" ./configure   \
   # --http-log-path="$LOG_PREFIX/startup.access.log"  \
 make
 make install
+mv $PREFIX "$CACHE_DIR"/$PREFIX
 
 cd "$CACHE_DIR"
 echo "-----> Removing archive and source dir..."
-ls -al $PWD
-rm    "$ARCHIVE"
+rm    "$SOURCE_DIR".tar.*
 rm -r "$SOURCE_DIR"
 
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
-ls -al $PWD
   ( cd "$(dirname "$FILE")" && ln -s "$(basename "$FILE")" "$(basename "$FILE" .1.0)" )
 done
 
