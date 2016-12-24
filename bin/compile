@@ -8,7 +8,7 @@ CACHE_DIR="$1"; shift
 ENV_DIR="$1"; shift
 
 export PREFIX="$BUILD_DIR/progs"
-mkdir -p "$PREFIX/include"
+mkdir -p "$PREFIX"
 
 LOG_PREFIX="$BUILD_DIR/tmp"
 mkdir -p "$LOG_PREFIX"
@@ -79,14 +79,14 @@ PATH="$PATH:/sbin" ./configure                      \
 make
 make install
 
-set "-x"
-for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
-  ln -s "$FILE" "$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
-done
-ln -s "$PREFIX"/luajit/bin/luajit-*                "$PREFIX"/bin/      || :
-ln -s "$PREFIX"/luajit/include/luajit-*            "$PREFIX"/include/  || :
-ln -s "$PREFIX"/nginx/sbin/nginx                   "$PREFIX"/bin/nginx || :
-set +x
+# set "-x"
+# for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
+#   ln -s "$FILE" "$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
+# done
+# ln -s "$PREFIX"/luajit/bin/luajit-*                "$PREFIX"/bin/      || :
+# ln -s "$PREFIX"/luajit/include/luajit-*            "$PREFIX"/include/  || :
+# ln -s "$PREFIX"/nginx/sbin/nginx                   "$PREFIX"/bin/nginx || :
+# set +x
 
 echo -n "-----> Installed: "
 "$PREFIX"/nginx/sbin/nginx -v || {
