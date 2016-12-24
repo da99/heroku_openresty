@@ -28,10 +28,10 @@ if [[ -d "$COMPILED_NGINX" ]] ; then
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
   mkdir -p "$BUILD_DIR"
   mkdir -p "$LOG_PREFIX"
+  echo "-----> Copying:"
   cp -i -r "$COMPILED_NGINX" "$BUILD_DIR/"
+  ls -al "$BUILD_DIR/"
 
-  echo "-----> ls /tmp"
-  ls -al "/tmp"
   echo "-----> ls $PREFIX"
   ls -al "$PREFIX"
 
