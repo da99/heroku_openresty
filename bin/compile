@@ -84,11 +84,14 @@ for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
   ln -s "$FILE" "$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
 done
 
-ls "$PREFIX"/luajit/lib/
+ls -al "$PREFIX"/luajit/lib/
 
 echo -n "-----> Installed: "
 "$PREFIX"/nginx/sbin/nginx -v || {
   rm -rf "$PREFIX"
   exit 1;
 }
+
+cd "$PREFIX"
+ldconfig
 
