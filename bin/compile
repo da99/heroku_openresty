@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #
 #
+echo "-----> PORT: $PORT"
+export PORT="$PORT"
 set -u -e -o pipefail
 
 BUILD_DIR="$1"; shift
@@ -20,6 +22,11 @@ echo "-----> CACHE_DIR: $CACHE_DIR"
 echo "-----> ENV_DIR:   $ENV_DIR"
 echo "-----> PREFIX:    $PREFIX"
 echo "-----> LOG_PREFIX:$LOG_PREFIX"
+
+if [[ ! -z "$PORT" ]]; then
+  echo "listen $PORT;" > "$PREFIX/listen.conf"
+fi
+
 echo "----->"
 echo "-----> Installing OpenResty:"
 
