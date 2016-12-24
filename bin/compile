@@ -109,18 +109,15 @@ for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
   fi
 done
 
-ls -al "$PREFIX"/luajit/lib/
-
 echo -n "-----> Installed: "
 "$PREFIX"/nginx/sbin/nginx -v || {
   rm -rf "$PREFIX"
   exit 1;
 }
 
-echo "-----> Copying into cache for next deploy:"
+echo "-----> Copying into cache for next deploy: $COMPILED"
 rm -rf "$COMPILED"
-mkdir -p "$COMPILED"
 cp -i -r "$PREFIX" "$COMPILED"
 ls "$COMPILED"
+echo "-----------------------------------------|"
 
-exit 1
