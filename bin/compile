@@ -25,7 +25,7 @@ if [[ -z "$LATEST_VER" ]]; then
 else
   echo "-----> Latest OpenResty: $LATEST_VER"
   if [[ "$CURRENT_VER" != "$LATEST_VER" ]]; then
-    rm -r "$COMPILED"
+    rm -rf "$COMPILED"
   fi
 fi
 
