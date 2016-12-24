@@ -121,3 +121,4 @@ cp -i -r "$PREFIX" "$COMPILED"
 ls "$COMPILED"
 echo "-----------------------------------------|"
 
+exit 1
