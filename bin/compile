@@ -64,7 +64,7 @@ PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 
 # NOTE: /sbin in PATH is needed because OpenResty
 # compilation requires ldconfig in PATH.
-set "-x"
+
 PATH="$PATH:/sbin" ./configure                      \
   --prefix="$PREFIX"             \
   --with-http_iconv_module       \
@@ -83,6 +83,8 @@ make install
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
   ln -s "$FILE" "$PREFIX"/luajit/lib/"$(basename "$FILE" .1.0)"
 done
+
+ls "$PREFIX"/luajit/lib/
 
 echo -n "-----> Installed: "
 "$PREFIX"/nginx/sbin/nginx -v || {
