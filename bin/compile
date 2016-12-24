@@ -48,7 +48,7 @@ if [[ -e "$COMPILED"/nginx/sbin/nginx ]] ; then
   cp -i -r "$COMPILED" "$PREFIX"
 
   echo -n "-----> Copied: "
-  "$PREFIX"/nginx/sbin/nginx -v
+  LD_LIBRARY_PATH="$PREFIX/luajit/lib" "$PREFIX"/nginx/sbin/nginx -v
   exit 0
 fi
 
