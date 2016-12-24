@@ -16,7 +16,7 @@ export COMPILED="$CACHE_DIR/progs"
 export LOG_PREFIX="$BUILD_DIR/tmp"
 mkdir -p "$LOG_PREFIX"
 
-ls "$CACHE_DIR"
+ls "$CACHE_DIR/compiled"
 
 exit 1
 CURRENT_VER="$(test -d "$COMPILED"/nginx && ("$COMPILED"/nginx/sbin/nginx -v 2>&1 | cut -d'/' -f2) || :)"
