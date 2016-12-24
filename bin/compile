@@ -35,7 +35,8 @@ if [[ -d "$COMPILED_NGINX/progs/nginx" ]] ; then
 
   echo ""
   echo "-----> Copying:"
-  cp -i -r "$COMPILED_NGINX" "$BUILD_DIR/"
+  set "-x"
+  cp -i -r "$COMPILED_NGINX/" "$BUILD_DIR/"
   ls -al "$BUILD_DIR/"
 
   echo "-----> ls $PREFIX"
