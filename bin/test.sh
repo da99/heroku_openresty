@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 #
-THE_ARGS="$@"
+
 THIS_DIR="$(dirname "$( dirname "$(realpath "$0")" )" )"
 
 set -u -e -o pipefail
