@@ -17,6 +17,12 @@ exit 1
 
 cd "$CACHE_DIR"
 
+stat "$0" >$PREFIX/new.compile
+
+if ! diff "$PREFIX/old.compile" "$PREFIX/new.compile" ; then
+  rm -rf $PREFIX
+fi
+
 export PATH="$PATH:/sbin"  # === to use ldconfig
 export PREFIX="./progs"
 
@@ -62,7 +68,7 @@ echo "-----> Installing OpenResty:"
 #           https://github.com/geoffleyland/heroku-buildpack-openresty/blob/master/bin/compile
 
 
-cd "$CACHE_DIR"
+
 
 ARCHIVE="openresty-${LATEST_VER}.tar.gz"
 SOURCE_DIR=$(basename "$ARCHIVE" ".tar.gz")
@@ -71,15 +77,8 @@ echo "-----> in cache directory: $PWD ["
 ls -1
 echo "-----> ]"
 
-if [[ ! -d "$SOURCE_DIR" ]]; then
-  if [[ ! -s $ARCHIVE ]]; then
-    wget --quiet "https://openresty.org/download/${ARCHIVE}"
-  fi
-  tar -xvf ${ARCHIVE} >/dev/null || { rm $ARCHIVE; rm -rf "$SOURCE_DIR"; exit 1; }
-fi
-
-cd $SOURCE_DIR
-echo "-----> in openresty source directory: $PWD"
+wget --quiet "https://openresty.org/download/${ARCHIVE}"
+tar -xvf ${ARCHIVE} >/dev/null || { rm $ARCHIVE; rm -rf "$SOURCE_DIR"; exit 1; }
 
 PROCS="$(grep -c '^processor' /proc/cpuinfo)"
 
@@ -101,11 +100,14 @@ PATH="$PATH:/sbin" ./configure   \
 make
 make install
 
+rm    "$ARCHIVE"
+rm -r "$SOURCE_DIR"
 
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
   ( cd "$(dirname "$FILE")" && ln -s "$(basename "$FILE")" "$(basename "$FILE" .1.0)" )
 done
 
+stat "$0" >$PREFIX/old.compile
 cp -i -r "$PREFIX" "$BUILD_DIR/$PREFIX"
 echo -n "-----> Installed in $BUILD_DIR: "
 $BUILD_DIR/$PREFIX/nginx/sbin/nginx -v || {
