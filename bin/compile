@@ -26,7 +26,7 @@ echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
 if [[ -d "$COMPILED_NGINX/progs/nginx" ]] ; then
   echo "=====> ls $COMPILED_NGINX"
-  ls -al "$COMPILED_NGINX"
+  ls -al "$COMPILED_NGINX/progs"
 
   echo ""
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
