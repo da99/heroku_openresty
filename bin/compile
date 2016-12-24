@@ -97,6 +97,7 @@ echo "-----> Removing archive and source dir..."
 rm    "$SOURCE_DIR".tar.*
 rm -r "$SOURCE_DIR"
 
+set "-x"
 for FILE in "$(echo "$PREFIX"/luajit/lib/libluajit-*.so.2*)" ; do
   ( cd "$(dirname "$FILE")" && ln -s "$(basename "$FILE")" "$(basename "$FILE" .1.0)" )
 done
