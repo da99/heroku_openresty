@@ -7,6 +7,7 @@ BUILD_DIR="$1"; shift
 CACHE_DIR="$1"; shift
 ENV_DIR="$1"; shift
 
+export PATH="$PATH:/sbin"  # === to use ldconfig
 export PREFIX="$BUILD_DIR/progs"
 mkdir -p "$PREFIX"
 
