@@ -24,7 +24,7 @@ echo "-----> ENV_DIR:   $ENV_DIR"
 echo "-----> PREFIX:    $PREFIX"
 echo "-----> LOG_PREFIX:$LOG_PREFIX"
 
-if [[ -d "$COMPILED_NGINX" ]] ; then
+if [[ -d "$COMPILED_NGINX/progs/nginx" ]] ; then
   echo "-----> Using compiled nginx: $COMPILED_NGINX"
   mkdir -p "$BUILD_DIR"
   mkdir -p "$LOG_PREFIX"
