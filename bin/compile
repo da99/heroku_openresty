@@ -12,12 +12,7 @@ ENV_DIR="$1"; shift
 export PATH="$PATH:/sbin"  # === to use ldconfig
 export PREFIX="./progs"
 
-set "-x"
 cd "$CACHE_DIR"
-
-ls -al ./progs
-ls -al ./progs/luajit
-exit 1
 
 stat "$0" >new.compile
 
